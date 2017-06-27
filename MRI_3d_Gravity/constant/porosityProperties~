@@ -1,0 +1,100 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      porosityProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+porosity1
+{
+    type            DarcyForchheimerOsmosis;
+    active          yes;
+    cellZone        fineSand;
+
+    DarcyForchheimerOsmosisCoeffs
+    {
+    	// B =  mu/k
+    	// A = beta/rho - beta is non-darcy behavior
+    	// d = B/mu -> 1/k -> should be n/k where n is the porosity
+    	// F = 2A/rho
+    	//mu	mu [1 -1 -1 0 0 0 0] (1.002e-3 1.002e-3 1.002e-3);
+    	// .3 n, 1.8e-13 k
+        d   d [0 -2 0 0 0 0 0] (1.667e12 1.667e12 1.667e12);//(2e12 2e12 2e12);
+        f   f [0 -1 0 0 0 0 0] (0 0 0);
+        coordinateSystem
+        {
+            type    cartesian;
+            origin  (0 0 0);
+            coordinateRotation
+            {
+                type    axesRotation;
+                e1      (0 0 1);
+                e2      (0 1 0);
+            }
+        }
+    }
+}
+porosity2
+{
+    type            DarcyForchheimerOsmosis;
+    active          yes;
+    cellZone        courseSand;
+
+    DarcyForchheimerOsmosisCoeffs
+    {
+    	//mu	mu [1 -1 -1 0 0 0 0] (1.002e-3 1.002e-3 1.002e-3);
+    	// .25 n, 7 e-11k
+        d   d [0 -2 0 0 0 0 0] (3.5714e9 3.5714e9 3.5714e9);//(3.33e11 3.33e11 3.33e11);//(5e10 5e10 5e10);
+        f   f [0 -1 0 0 0 0 0] (0 0 0);
+        coordinateSystem
+        {
+            type    cartesian;
+            origin  (0 0 0);
+            coordinateRotation
+            {
+                type    axesRotation;
+                e1      (0 0 1);
+                e2      (0 1 0);
+            }
+        }
+    }
+}
+porosity3
+{
+    type            DarcyForchheimerOsmosis;
+    active          yes;
+    cellZone        boundarySand;
+
+    DarcyForchheimerOsmosisCoeffs
+    {
+    	//mu	mu [1 -1 -1 0 0 0 0] (1.002e-3 1.002e-3 1.002e-3);
+    	// .2 n, 1e-15 k
+      //  d   d [0 -2 0 0 0 0 0] (2e14 2e14 2e14);//(5e10 5e10 5e10);
+      //.2 n, 2e-14 k
+        d   d [0 -2 0 0 0 0 0] (1.667e12 1.667e12 1.667e12);//(1e13 1e13 1e13);
+        f   f [0 -1 0 0 0 0 0] (0 0 0);
+        coordinateSystem
+        {
+            type    cartesian;
+            origin  (0 0 0);
+            coordinateRotation
+            {
+                type    axesRotation;
+                e1      (0 0 1);
+                e2      (0 1 0);
+            }
+        }
+    }
+}
+
+// ************************************************************************* //
