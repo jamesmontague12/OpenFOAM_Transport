@@ -1,0 +1,18 @@
+#!/bin/sh
+cd ${0%/*} || exit 1    # run from this directory
+
+# Source tutorial clean functions
+. $WM_PROJECT_DIR/bin/tools/CleanFunctions
+
+#cleanCase
+cleanTimeDirectories
+rm -rf VTK
+rm -rf constant/cellToRegion constant/polyMesh/sets
+rm -f 0/cellToRegion
+rm -rf postProcessing
+rm -rf *.foam
+rm -rf 0/alphaL 0/alphaT 0/Dm 0/aa 0/Rf 0/mu 0/C 0/ad 0/beta 0/perm
+rm -rf 0/Cim 0/Cip 0/Ctot 0/Klang 0/Km 0/CRmax 0/C 0/Ks
+
+
+# ----------------------------------------------------------------- end-of-file
