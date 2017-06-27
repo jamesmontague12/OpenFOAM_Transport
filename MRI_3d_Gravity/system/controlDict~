@@ -1,0 +1,51 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     GWrhoOsmosisPorousSimpleFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime        16243200;//188 days until Jan 27 6134400;// 71 days//1900800;//22 days 4233600;//7 wks 3628800;// 6 weeks //86400;
+
+deltaT          600;//10 min 
+
+writeControl    timeStep;
+
+writeInterval   144;// every day 
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  9;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   9;
+
+graphFormat     raw;
+
+runTimeModifiable true;
+
+
+// ************************************************************************* //

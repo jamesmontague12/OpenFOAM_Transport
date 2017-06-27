@@ -1,0 +1,182 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.2.2                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      topoSetDict;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+actions
+(    
+	// fine sand
+    {
+    	name 	fineSand;
+    	type	cellSet;
+    	action	new;
+    	source	cylinderToCell;
+    	sourceInfo
+    	{
+		    p1 (0 0 0.06166666667);//(0 0 0.0683333333);
+		    p2 (0 0 -0.06166666667);//(0 0 -0.068333333);
+		    radius .0365125;// 1 cell -> .09592;
+		}
+	}
+	{
+		name 	fineSand;
+		type	cellZoneSet;
+		action	new;
+		source	setToCellZone;
+		sourceInfo
+		{
+			set fineSand;
+		}
+	}
+	
+	// boundary layer
+	{
+		name boundarySand;
+		type cellZoneSet;
+		action clear;
+	}
+	{
+		name	boundarySand;
+		type	cellSet;
+		action 	new;
+		source	cylinderToCell;
+		sourceInfo
+		{
+			p1 (0 0 0.06166667);
+        	p2 (0 0 -0.061666667);
+        	radius .0365125;
+        }
+    }
+    {
+    	name 	boundarySand;
+    	type	cellSet;
+    	action	delete;
+    	source	cellToCell;
+    	sourceInfo
+    	{
+    		set fineSand;
+    	}
+    }
+	{
+		name 	boundarySand;
+		type	cellZoneSet;
+		action	new;
+		source	setToCellZone;
+		sourceInfo
+		{
+			set boundarySand;
+		}
+	}
+	
+	// course sand is all the other cells
+	{
+		name	courseSand;
+		type	cellZoneSet;
+		action	clear;
+	}
+	{
+		name	courseSand;
+		type	cellSet;
+		action	add;
+		source	cellToCell;
+		sourceInfo
+		{
+			set fineSand;
+		}
+	}
+	{
+		name	courseSand;
+		type	cellSet;
+		action	add;
+		source	cellToCell;
+		sourceInfo
+		{
+			set boundarySand;
+		}
+	}
+	{
+    	name	courseSand;
+    	type	cellSet;
+    	action	invert;
+    }
+    {
+    	name	courseSand;
+    	type	cellZoneSet;
+    	action	new;
+    	source	setToCellZone;
+    	sourceInfo
+    	{
+    		set courseSand;
+    	}
+    }
+    
+    
+    /*{
+        name    refineCells;
+        type    cellSet;
+        action  new;
+        source  cylinderToCell;
+        sourceInfo
+        {
+            p1 (0 0 0.08);
+            p2 (0 0 -0.08);
+            radius .1016;
+            //box (-0.12954001128673553 -0.1295400261878967 .05)(0.12953999638557434 0.129539966583251955 .08);
+        }
+    }*//*
+    {
+        name    refineCells;
+        type    cellSet;
+        action  add;
+        source  cylinderToCell;
+        sourceInfo
+        {
+            p1 (0 0 -0.08);
+            p2 (0 0 -0.05);
+            radius .0465;
+           // box (-0.12954001128673553 -0.1295400261878967 -.08)(0.12953999638557434 0.129539966583251955 -.05);
+        }
+    }*/
+   /* {
+		name 	innerCell;
+		type 	cellSet;
+		action	new;
+		source	cylinderToCell;
+		sourceInfo
+		{
+			p1 (0 0 -20);
+			p2 (0 0 20);
+			radius .11;
+		}
+    }
+    {
+    	name 	refineCells;
+    	type	cellSet;
+    	action	new;
+    	source	cellToCell;
+    	sourceInfo
+    	{
+    		set innerCell;
+    	}
+    }
+    {
+    	name	refineCells;
+    	type	cellSet;
+    	action	invert;
+    }*/
+    
+);
+
+// ************************************************************************* //

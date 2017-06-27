@@ -1,0 +1,117 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alphaT .000025//.000025
+    volScalarFieldValue alphaL .00025//.00025
+    volScalarFieldValue Dm 8e-11//4e-8//.4e-9
+    volScalarFieldValue Rf 1
+    volScalarFieldValue perm 1.4286e-11 // maybe a smidge smaller?
+    volScalarFieldValue C 0
+    volScalarFieldValue Cip 1
+    volScalarFieldValue am 1e-16
+    volScalarFieldValue aim 1
+    volScalarFieldValue vcrit 1e-10
+    volScalarFieldValue diam 100e-6
+    volScalarFieldValue osmo .1
+    volScalarFieldValue Kd 1
+    
+   // volScalarFieldValue Kf 1
+   // volScalarFieldValue Ks 1
+    volScalarFieldValue af 1e-12
+    volScalarFieldValue as 1e-12
+    //volScalarFieldValue Nf 0.00001
+    //volScalarFieldValue Ns 0.00001
+  // volScalarFieldValue CRmax 0.000001
+    volScalarFieldValue Km 1
+);
+
+regions
+(
+    // boundary sand
+    cylinderToCell
+    {
+        p1 (0 0 0.075);
+        p2 (0 0 -0.075);
+        radius .1016;
+        fieldValues
+        (
+           //	volScalarFieldValue alphaT .0000010//.0000045
+    		//volScalarFieldValue alphaL .000010//.000045 // based on 45 micron silica
+           //	volScalarFieldValue Dm 4e-11//5e-13//4e-8//0.4e-9 // from paper
+            volScalarFieldValue alphaT 4.5e-6//.0000045
+    		volScalarFieldValue alphaL 4.5e-5//.000045 // based on 45 micron silica
+    		volScalarFieldValue Dm 3.5e-10//3e-10//4e-8//0.4e-9 // from paper 8e-11
+           	//volScalarFieldValue osmo .25// osmosis coefficient
+           	volScalarFieldValue am 1e-3// scale for diffusive osmotic coefficient
+           	volScalarFieldValue aim 5
+           	volScalarFieldValue C 0
+           	volScalarFieldValue diam 7e-6
+           	volScalarFieldValue n 0.2
+           	volScalarFieldValue rhoS 2837
+           	volScalarFieldValue Kd 2
+           	volScalarFieldValue osmo .485
+           	 
+       	   // volScalarFieldValue Kf .5
+			//volScalarFieldValue Ks .5
+			volScalarFieldValue af 2e-6//0.00005
+			volScalarFieldValue as 2.5e-7//3e-7//0.000002
+			//volScalarFieldValue Nf 0.00003
+			//volScalarFieldValue Ns 0.00003
+			//volScalarFieldValue CRmax .9
+			volScalarFieldValue Km 5.5
+        );
+    }
+	// fine sand
+    cylinderToCell
+    {
+        p1 (0 0 0.06166666667);//(0 0 0.0683333333);
+        p2 (0 0 -0.06166666667);//(0 0 -0.068333333);
+        radius .09024;// 1 cell -> .09592;
+        fieldValues
+        (
+            volScalarFieldValue alphaT 2.5e-5//.0000045
+    		volScalarFieldValue alphaL 2.5e-4//.000045 // based on 45 micron silica
+    		volScalarFieldValue Dm 6e-10//4e-8//0.4e-9 // from paper 8e-11
+            volScalarFieldValue Rf 1
+            volScalarFieldValue perm 2e-13//2e14<-from tests? perhaps 1e-15 more appropriate?
+            volScalarFieldValue C 0//1.5 // for 4 mmol/L
+            volScalarFieldValue n 0.2
+            //volScalarFieldValue osmo 0// osmosis coefficient
+            volScalarFieldValue am 1e-16
+            volScalarFieldValue aim 1
+            volScalarFieldValue diam 10e-6
+            volScalarFieldValue rhoS 2800
+            volScalarFieldValue Kd 1
+            volScalarFieldValue osmo .4
+           // volScalarFieldValue CRmax .8
+                       	 
+       	  // volScalarFieldValue Kf 3
+			//volScalarFieldValue Ks 3
+			volScalarFieldValue af 8e-7//0.00005
+			volScalarFieldValue as 1e-7//0.000002
+			//volScalarFieldValue Nf 0.00003
+			//volScalarFieldValue Ns 0.00003
+			volScalarFieldValue Km 5.5
+        );
+    }
+        
+);
+
+
+// ************************************************************************* //

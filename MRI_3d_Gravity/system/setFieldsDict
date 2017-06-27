@@ -1,0 +1,68 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.3.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volScalarFieldValue alphaT 2.5e-5
+    volScalarFieldValue alphaL 2.5e-4
+    volScalarFieldValue Rf 1
+    volScalarFieldValue C 0
+    volScalarFieldValue am 1e-16
+    volScalarFieldValue aim 1
+    volScalarFieldValue vcrit 1e-10
+    volScalarFieldValue diam 100e-6
+    volScalarFieldValue Dm 7.35777755312e-12
+    volScalarFieldValue Klang 1.97896115885
+    volScalarFieldValue beta 8.21600664978
+    volScalarFieldValue aa 6.05755330852e-12
+    volScalarFieldValue ad 1.28443661901e-11
+    volScalarFieldValue Km 1
+);
+
+regions
+(
+    // fine sand
+    cylinderToCell
+    {
+        p1 (0 0 0.0616666667);
+        p2 (0 0 -0.0616666667);
+        radius .0365125;
+        fieldValues
+        (
+            volScalarFieldValue alphaT 2e-6
+    		volScalarFieldValue alphaL 2e-5
+           	volScalarFieldValue am 1e-3
+           	volScalarFieldValue aim 5
+           	volScalarFieldValue C 2.09425420198
+           	volScalarFieldValue Cim 0.805745798019
+           	volScalarFieldValue Ctot 2.9
+           	volScalarFieldValue diam 7e-6
+           	volScalarFieldValue n 0.2
+           	volScalarFieldValue rhoS 2837
+           	volScalarFieldValue Dm 1.58501112013e-11
+           	volScalarFieldValue Klang 7.16394000712
+           	volScalarFieldValue beta 0.859451044429
+           	volScalarFieldValue aa 3.31172809501e-06
+           	volScalarFieldValue ad 5.38920714245e-10
+           	volScalarFieldValue Km 1
+        );
+    }
+        
+);
+
+
+//************************************************************************* //
